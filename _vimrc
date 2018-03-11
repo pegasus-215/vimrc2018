@@ -57,6 +57,7 @@ endfunction
 " <c-k>   <c-w><c-k>
 " <c-l>   <c-w><c-l>
 " <c-h>   <c-w><c-h>
+" <c-o>   go back to the last position
 " <leader>nh   :no high light
 " <leader>lo   :lopen<cr>
 " <leader>lc   :lclose<cr>
@@ -69,8 +70,13 @@ endfunction
 " gl      lowercase the word in insert mode and normal MODE
 " gt       go to the next tab
 " gT       go to the opposit tab
-" :tabnew    open a new tab with a new buffer 
 " gV      selects the block of characters you added last time you were in INSERT mode
+" :tabnew    open a new tab with a new buffer 
+" :sv     split the screen horizentolly
+" :vs     split the screen vertiaclly   
+" <F2>    toggle the relativenumber
+" :PluginInstall进行安装，安装好后，点'l'(lower case L),就会出现安装细节。
+" <s-*>   会从跳到下一个当前光标所指的文字上。
 "*************************************************自己添加的第一部分开始**********************************************************
 "20180222
 "寻找时采用智能寻找,即寻找时不区分大小写，但是如果寻找的里面有大写字母，则区分大小写搜寻
@@ -79,7 +85,7 @@ set ignorecase smartcase
 "*********************************************************************************************************************************
 "改变了字体大小，和背景颜色
 set guifont=courier\ New:h10
-colorscheme desert
+" colorscheme desert
 
 " set the default folder while open the gvim
 cd C:\Users\Miste\Documents\Code
@@ -131,10 +137,6 @@ endfunction
 set clipboard=unnamed
 
 " set wildmenu 这个是什么意思，没看懂
-
-
-" use the system clipboard as the default clipboard 	
-"set clipboard=unnamed
 
 "uppercase the word
 nnoremap gu viwU
@@ -202,7 +204,7 @@ au BufNewFile,BufRead *.py
 \ set textwidth=79 |
 \ set expandtab |
 \ set autoindent |
-\ set fileformat=windows
+\ set fileformat=dos
 
 "And for full stack development you can use another au command for each filetype:
 au BufNewFile,BufRead *.js, *.html, *.css
@@ -236,23 +238,12 @@ set relativenumber
 "the git, and i have installed it, so maybe the code below may not be used
 "anymore. But it can be used to learn how the function is made out.
 "如果想在absolute number和relative number之间切换的话，可以用下面的程序。
-"function! NumberToggle()
-"  if(&relativenumber == 1
-"    set number
-"  else
-"    set relativenumber
-"  endif
-"endfunc
-"
-"nnoremap <C-n> :call NumberToggle()<cr>
+function! NumberToggle()
+  set relativenumber!
+endfunc
 
-"在离开vim界面的时候，就显示absolute number，在vim界面就显示relative number.
-":au FocusLost * :set number
-":au FocusGained * :set relativenumber
+nnoremap <F2> :call NumberToggle()<cr>
 
-"在inert模式下显示absolute number, normal模式下显示relative number
-"autocmd InsertEnter * :set number
-"autocmd InsertLeave * :set relativenumber
 "---------------------------------------------------------------------------------------------------------------------------------------------
 
 "以下是来自GitHub vundle的指导
@@ -300,15 +291,15 @@ let python_highlight_all=1
 "Zenburn is a low-contrast color scheme for Vim. It’s easy for your eyes and designed to keep you in the zone for long programming sessions.
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
-
-if has('gui_running')
-set background=dark
-colorscheme solarized
-else
-colorscheme zenburn
-endif
-
-call togglebg#map("<F5>")
+"
+"if has('gui_running')
+"set background=dark
+"colorscheme solarized
+"else
+"colorscheme zenburn
+"endif
+"
+"call togglebg#map("<F5>")
 
 
 "把程序中的函数做个列表
