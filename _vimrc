@@ -85,10 +85,10 @@ set ignorecase smartcase
 "*********************************************************************************************************************************
 "改变了字体大小，和背景颜色
 set guifont=courier\ New:h10
-" colorscheme desert
+colorscheme desert
 
 " set the default folder while open the gvim
-cd C:\Users\Miste\Documents\Code
+cd C:\Users\hi\Documents\code
 
 " 设置编码自动识别, 中文引号显示  
 set fileencodings=utf-8,cp936,big5,euc-jp,euc-kr,latin1,ucs-bom  
@@ -268,6 +268,11 @@ let g:SimpylFold_docstring_preview=1
 
 Plugin 'vim-scripts/indentpython.vim'
 
+Bundle 'Valloric/YouCompleteMe'
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+
 "You can have VIM check your syntax on each save with the syntastic extension:
 "in the code window, :lopen and :lclose will open and close the syntax check
 "info window. In the syntax check info window, :bdelete will close itself.
@@ -289,17 +294,18 @@ Plugin 'nvie/vim-flake8'
 let python_highlight_all=1
 
 "Zenburn is a low-contrast color scheme for Vim. It’s easy for your eyes and designed to keep you in the zone for long programming sessions.
-Plugin 'jnurmine/Zenburn'
+" Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 "
-"if has('gui_running')
-"set background=dark
-"colorscheme solarized
-"else
-"colorscheme zenburn
-"endif
+" if has('gui_running')
+" set background=dark
+let g:solarized_termtrans=1
+" colorscheme solarized
+" else
+" colorscheme zenburn
+" endif
 "
-"call togglebg#map("<F5>")
+" call togglebg#map("<F2>")
 
 
 "把程序中的函数做个列表
@@ -336,6 +342,7 @@ Plugin 'othree/html5.vim'
 
 " use gcc to comment out the code inline;gc to comment out the visual part(more functions u can find)
 Plugin 'tomtom/tcomment_vim'
+
 "*****************Plugins below are added by vundle example******************
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
