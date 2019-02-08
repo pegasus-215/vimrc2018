@@ -6,6 +6,11 @@
 "
 "
 "
+" part1: 源代码
+"        即安装好gVim之后,vimrc自带的内容
+" part2: vimrc中快捷键的映射整理
+" part3: 自己根据理解自己添加的部分
+" part4: vundle插件
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""原代码""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 source $VIMRUNTIME/vimrc_example.vim
@@ -46,7 +51,6 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""原代码结束""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " <F2>    switch between absolute number and relative number
 " <F5>    run python
-" gv      select the content entered in last insert mode
 " gcc     comment out the inline code by using tomtom/tcomment_vim
 " <space> fold the code
 " jk      <esc>
@@ -122,7 +126,6 @@ let mapleader=","
 " edit vimrc/zshrc and load vimrc bindings
 " $MYVIMRC is a special Vim variable that points to your /.vimrc file.
 nnoremap <leader>ev :tabnew $MYVIMRC<CR> 
-
 nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
@@ -136,7 +139,8 @@ endfunction
 " use the system clipboard as the default clipboard.
 set clipboard=unnamed
 
-" set wildmenu 这个是什么意思，没看懂
+" Vim automatically autocompletes things like filenames when you, for instance,run :e ~/.vim<TAB>? Well it will provide a graphical menu of all the matches you can cycle through if you turn on wildmenu.
+set wildmenu 
 
 "uppercase the word
 nnoremap gu viwU
@@ -167,12 +171,18 @@ nnoremap <leader>nh :nohl<cr>
 nnoremap <leader>lo   :lopen<cr>
 nnoremap <leader>lc   :lclose<cr>
 "*************************************************自己添加的第一部分结束**********************************************************
+
+
+
+
+
+
 "***************************************https://www.fullstackpython.com/vim.html**************************************************
 " Enable folding
-" set foldenable
+set foldenable
 
 " foldlevelstart is the starting fold level for opening a new buffer. If it is set to 0, all folds will be closed. Setting it to 99 would guarantee folds are always open. So, setting it to 10 here ensures that only very nested blocks of code are folded when opening a buffer.
-" set foldstart = 10
+set foldlevelstart=10
 
 " Folds can be nested. Setting a max on the number of folds guards against too many folds. If you need more than 10 fold levels you must be writing some Javascript burning in callback-hell and I feel very bad for you.
 " set foldnestmax=10
@@ -261,7 +271,7 @@ call vundle#begin('C:\my_program\Vim\vimfiles\bundle\')
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'tmhedberg/SimpylFold'
-"Want to see the docstrings for folded code?
+"Want to see the docstrings for folded code
 let g:SimpylFold_docstring_preview=1
 
 "Indentation
@@ -327,6 +337,7 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 "fugitive is a git plugin, 再看看有没有其他版本管理plugin
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 "displaying that undo tree in graphical form. Get it and don't look back. Here I've mapped it to ,u, which I like to think of as "super undo".
 Plugin 'sjl/gundo.vim'
