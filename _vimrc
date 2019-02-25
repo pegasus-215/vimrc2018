@@ -51,6 +51,45 @@ nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""原代码结束""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" <F2>    switch between absolute number and relative number
+" <F5>    run python
+" gcc     comment out the inline code by using tomtom/tcomment_vim
+" <space> fold the code
+" jk      <esc>
+" <c-t>   taglist
+" <c-n>   see the list of "completions" for the current word, based on all the words that you have used in the current document.
+" <s-d>   go to function defination
+" <c-j>   <c-w><c-j>
+" <c-k>   <c-w><c-k>
+" <c-l>   <c-w><c-l>
+" <c-h>   <c-w><c-h>
+" <c-o>   go back to the last position
+" <leader>nh   :no high light
+" <leader>lo   :lopen<cr>
+" <leader>lc   :lclose<cr>
+" <leader> is changed to ','
+" <leader>n    nerdtree
+" <leader>u    show the undo tree
+" <leader>ev   edit vimrc
+" <leader>sv   source vimrc
+" gu      uppercase the word in insert mode and normanl mode
+" gl      lowercase the word in insert mode and normal MODE
+" gt       go to the next tab
+" gT       go to the opposit tab
+" gV      selects the block of characters you added last time you were in INSERT mode
+" :tabnew    open a new tab with a new buffer 
+" :sv     split the screen horizentolly
+" :vs     split the screen vertiaclly   
+" <F2>    toggle the relativenumber
+" :PluginInstall进行安装，安装好后，点'l'(lower case L),就会出现安装细节。
+" <s-*>   会从跳到下一个当前光标所指的文字上。
+"*************************************************自己添加的第一部分开始**********************************************************
+"20180222
+"寻找时采用智能寻找,即寻找时不区分大小写，但是如果寻找的里面有大写字母，则区分大小写搜寻
+set ignorecase smartcase
+
+"*********************************************************************************************************************************
 "改变了字体大小，和背景颜色
 set guifont=courier\ New:h10
 colorscheme desert
@@ -95,7 +134,6 @@ nnoremap gl viwu
 " maxmize the GVIM window. It is said on the web that the command below doesn't support GVIM in GNOME.
 autocmd GUIEnter * simalt ~x
 
-
 " map <esc> to jk
 inoremap jk <esc>
 vnoremap jk <esc> 
@@ -132,11 +170,8 @@ set foldnestmax=10
 set foldmethod=indent " This tells Vim to fold based on indentation. This is especially useful for me since I spend my days in Python. Other acceptable values are marker, manual, expr, syntax, diff. Run :help foldmethod to find out what each of those do.
 set foldlevel=99
 
-
 " Enable folding with the spacebar
 nnoremap <space> za
-
-
 
 "Indentation
 "tabstop is the number of spaces a tab counts for. So, when Vim opens a file and reads a <TAB> character, it uses that many spaces to visually show the <TAB>.
@@ -197,7 +232,6 @@ function! NumberToggle()
 endfunc
 
 nnoremap <F2> :call NumberToggle()<cr>
-
 
 "---------------------------------------------------------------------------------------------------------------------------------------------
 
