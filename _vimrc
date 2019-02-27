@@ -203,9 +203,9 @@ au BufNewFile,BufRead *.js, *.html, *.css
 
 
 "to avoid extraneous whitespace. We can have VIM flag that for us so that it’s easy to spot  and then remove.
-"接下来这一句是在网上找到的解决办法，给"BadWhitespace先定义一下，然后才能使用。下面命令中的au，意思就是自动执行的意思。These are automatically run for a given file type,感觉和后面语法检测的功能有点重复，所以不用了。
-" highlight BadWhitespace ctermbg=blue guibg=gray
-" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+"接下来这一句是在网上找到的解决办法，给"BadWhitespace先定义一下，然后才能使用。下面命令中的au，意思就是自动执行的意思。These are automatically run for a given file type.发现这个还是有用的，可以把空格标记出来。
+highlight BadWhitespace ctermbg=blue guibg=gray
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 
 "python with virtualenv support, 其实我不太懂这段啥意思
@@ -274,12 +274,22 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" a Vim plugin with syntax highlighting, breakpoints, PEP8 linting, code completion and many other features you'd expect from an integrated development environment.
+Plugin 'python-mode/python-mode'
+let g:pymode_breakpoint = 0
+" let g:pymode_lint = 1
+" let g:pymode_lint_on_write = 0
+" let g:pymode_lint_unmodified = 0
+map <leader>f :PymodeLintAuto<CR>
+
 "Also add PEP8 checking with this nifty little plugin:
-Plugin 'nvie/vim-flake8'
-
+" Plugin 'nvie/vim-flake8'
+" autocmd BufWritePost *.py call Flake8()
+"
 "enable all Python syntax highlighting features, Finally, make your code look pretty:
-"let python_highlight_all=1
-
+" let python_highlight_all=1
+" syntax on
+"
 "Zenburn is a low-contrast color scheme for Vim. It’s easy for your eyes and designed to keep you in the zone for long programming sessions.
 " Plugin 'jnurmine/Zenburn'
 "Plugin 'altercation/vim-colors-solarized'
