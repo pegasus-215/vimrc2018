@@ -78,6 +78,8 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 " gt       go to the next tab
 " gT       go to the opposit tab
 " gV      selects the block of characters you added last time you were in INSERT mode
+" gj      move down the curser in the screen line
+" gk      move up the curser in the screen line
 " :tabnew    open a new tab with a new buffer 
 " :sv     split the screen horizentolly
 " :vs     split the screen vertiaclly   
@@ -116,11 +118,11 @@ cd C:\Users\hi\Documents\code
 set showmatch
 
 "按F5对程序进行调试
-map <F5> :call CompilePY()<CR>
-function! CompilePY()
-	exec "w"
-	exec "!python %"
-endfunction
+"map <F5> :call CompilePY()<CR>
+"function! CompilePY()
+"	exec "w"
+"	exec "!python %"
+"endfunction
 
 
 "It visually selects the block of characters you added last time you were in INSERT mode.
@@ -138,6 +140,10 @@ autocmd GUIEnter * simalt ~x
 inoremap jk <esc>
 vnoremap jk <esc> 
 cnoremap jk <esc> 
+
+inoremap JK <esc>
+vnoremap JK <esc> 
+cnoremap JK <esc> 
 
 inoremap  <esc> <nop>
 vnoremap  <esc> <nop> 
@@ -209,14 +215,14 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 
 "python with virtualenv support, 其实我不太懂这段啥意思
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
+"py << EOF
+"import os
+"import sys
+"if 'VIRTUAL_ENV' in os.environ:
+"  project_base_dir = os.environ['VIRTUAL_ENV']
+"  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"  execfile(activate_this, dict(__file__=activate_this))
+"EOF
 
 " 启用行号,绝对行号和相对行号
 " 参考 http://jeffkreeftmeijer.com/2012/relative-line-numbers-in-vim-for-super-fast-movement/
@@ -235,142 +241,159 @@ nnoremap <F2> :call NumberToggle()<cr>
 
 "---------------------------------------------------------------------------------------------------------------------------------------------
 
-"以下是来自GitHub vundle的指导
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=C:\my_program\Vim\vimfiles\bundle\Vundle.vim
-call vundle#begin('C:\my_program\Vim\vimfiles\bundle\')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" :PluginInstall进行安装，安装好后，点'l'(lower case L),就会出现安装细节。
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-"Plugin 'tmhedberg/SimpylFold'
-"Want to see the docstrings for folded code
-"let g:SimpylFold_docstring_preview=1
-
-"Indentation
-Plugin 'vim-scripts/indentpython.vim'
-
-Bundle 'Valloric/YouCompleteMe'
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-"You can have VIM check your syntax on each save with the syntastic extension:
-"in the code window, :lopen and :lclose will open and close the syntax check
-"info window. In the syntax check info window, :bdelete will close itself.
-Plugin 'scrooloose/syntastic'
-" code below is recommended in the github
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" a Vim plugin with syntax highlighting, breakpoints, PEP8 linting, code completion and many other features you'd expect from an integrated development environment.
-Plugin 'python-mode/python-mode'
-let g:pymode_breakpoint = 0
-" let g:pymode_lint = 1
-" let g:pymode_lint_on_write = 0
-" let g:pymode_lint_unmodified = 0
-map <leader>f :PymodeLintAuto<CR>
-
-"Also add PEP8 checking with this nifty little plugin:
-" Plugin 'nvie/vim-flake8'
-" autocmd BufWritePost *.py call Flake8()
+""以下是来自GitHub vundle的指导
+"set nocompatible              " be iMproved, required
+"filetype off                  " required
 "
-"enable all Python syntax highlighting features, Finally, make your code look pretty:
-" let python_highlight_all=1
-" syntax on
+"" set the runtime path to include Vundle and initialize
+"set rtp+=C:\my_program\Vim\vimfiles\bundle\Vundle.vim
+"call vundle#begin('C:\my_program\Vim\vimfiles\bundle\')
+"" alternatively, pass a path where Vundle should install plugins
+""call vundle#begin('~/some/path/here')
 "
-"Zenburn is a low-contrast color scheme for Vim. It’s easy for your eyes and designed to keep you in the zone for long programming sessions.
-" Plugin 'jnurmine/Zenburn'
-"Plugin 'altercation/vim-colors-solarized'
+"" :PluginInstall进行安装，安装好后，点'l'(lower case L),就会出现安装细节。
+"" let Vundle manage Vundle, required
+"Plugin 'VundleVim/Vundle.vim'
 "
-" if has('gui_running')
-" set background=dark
-"let g:solarized_termtrans=1
-" colorscheme solarized
-" else
-" colorscheme zenburn
-" endif
+""Plugin 'tmhedberg/SimpylFold'
+""Want to see the docstrings for folded code
+""let g:SimpylFold_docstring_preview=1
 "
-" call togglebg#map("<F2>")
-
-
-"把程序中的函数做个列表
-Plugin 'vim-scripts/taglist.vim'
-nnoremap  <c-t> :TlistToggle<CR>
-
-
-Plugin 'scrooloose/nerdtree'
-"以下值为0的时候，打开vim是不会启动nerdtree的，值为1的时候，启动自动打开nerdtree
-let g:nerdtree_tabs_open_on_gui_startup = 0
-"用于打开和关闭NERTree
-map <leader>n :NERDTreeToggle<CR>
-
-"if you want to use tabs, utilize vim-nerdtree-tabi:
-Plugin 'jistr/vim-nerdtree-tabs'
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-
-
-"fugitive is a git plugin, 再看看有没有其他版本管理plugin
-Plugin 'tpope/vim-fugitive'
-
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-
-"displaying that undo tree in graphical form. Get it and don't look back. Here I've mapped it to ,u, which I like to think of as "super undo".
-Plugin 'sjl/gundo.vim'
-nnoremap <leader>u :GundoToggle<CR>
-
-" Insert or delete brackets, parens, quotes in pair.
-Plugin 'jiangmiao/auto-pairs'
-
-
-" 增加了HTML5的语法支持
-Plugin 'othree/html5.vim'
-
-
-" use gcc to comment out the code inline;gc to comment out the visual part(more functions u can find)
-Plugin 'tomtom/tcomment_vim'
-
-"*****************Plugins below are added by vundle example******************
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
+""Indentation
+"Plugin 'vim-scripts/indentpython.vim'
+"
+"Bundle 'Valloric/YouCompleteMe'
+"let g:ycm_autoclose_preview_window_after_completion=1
+"map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"
+""You can have VIM check your syntax on each save with the syntastic extension:
+""in the code window, :lopen and :lclose will open and close the syntax check
+""info window. In the syntax check info window, :bdelete will close itself.
+"Plugin 'scrooloose/syntastic'
+"" code below is recommended in the github
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"
+"" a Vim plugin with syntax highlighting, breakpoints, PEP8 linting, code completion and many other features you'd expect from an integrated development environment.
+"Plugin 'python-mode/python-mode'
+"let g:pymode_breakpoint = 0
+"" let g:pymode_lint = 1
+"" let g:pymode_lint_on_write = 0
+"" let g:pymode_lint_unmodified = 0
+"map <leader>f :PymodeLintAuto<CR>
+"
+"Plugin 'vhda/verilog_systemverilog.vim'
+"runtime macros/matchit.vim
+"
+"Plugin 'vimtaku/hl_matchit.vim'
+"
+"
+"Plugin 'ervandew/supertab'
+"let g:SuperTabDefaultCompletionType = 'context'
+"
+"
+"Plugin 'Konfekt/FastFold'
+"
+"
+"nmap <F8> :TagbarToggle<CR>
+"
+"
+"
+""Also add PEP8 checking with this nifty little plugin:
+"" Plugin 'nvie/vim-flake8'
+"" autocmd BufWritePost *.py call Flake8()
+""
+""enable all Python syntax highlighting features, Finally, make your code look pretty:
+"" let python_highlight_all=1
+"" syntax on
+""
+""Zenburn is a low-contrast color scheme for Vim. It’s easy for your eyes and designed to keep you in the zone for long programming sessions.
+"" Plugin 'jnurmine/Zenburn'
+""Plugin 'altercation/vim-colors-solarized'
+""
+"" if has('gui_running')
+"" set background=dark
+""let g:solarized_termtrans=1
+"" colorscheme solarized
+"" else
+"" colorscheme zenburn
+"" endif
+""
+"" call togglebg#map("<F2>")
+"
+"
+""把程序中的函数做个列表
+"Plugin 'vim-scripts/taglist.vim'
+"nnoremap  <c-t> :TlistToggle<CR>
+"
+"
+"Plugin 'scrooloose/nerdtree'
+""以下值为0的时候，打开vim是不会启动nerdtree的，值为1的时候，启动自动打开nerdtree
+"let g:nerdtree_tabs_open_on_gui_startup = 0
+""用于打开和关闭NERTree
+"map <leader>n :NERDTreeToggle<CR>
+"
+""if you want to use tabs, utilize vim-nerdtree-tabi:
+"Plugin 'jistr/vim-nerdtree-tabs'
+"let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+"
+"
+""fugitive is a git plugin, 再看看有没有其他版本管理plugin
 "Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
 "
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+""displaying that undo tree in graphical form. Get it and don't look back. Here I've mapped it to ,u, which I like to think of as "super undo".
+"Plugin 'sjl/gundo.vim'
+"nnoremap <leader>u :GundoToggle<CR>
+"
+"" Insert or delete brackets, parens, quotes in pair.
+"Plugin 'jiangmiao/auto-pairs'
+"
+"
+"" 增加了HTML5的语法支持
+"Plugin 'othree/html5.vim'
+"
+"
+"" use gcc to comment out the code inline;gc to comment out the visual part(more functions u can find)
+"Plugin 'tomtom/tcomment_vim'
+"
+""*****************Plugins below are added by vundle example******************
+"" The following are examples of different formats supported.
+"" Keep Plugin commands between vundle#begin/end.
+"" plugin on GitHub repo
+""Plugin 'tpope/vim-fugitive'
+"" plugin from http://vim-scripts.org/vim/scripts.html
+"" Plugin 'L9'
+"" Git plugin not hosted on GitHub
+""Plugin 'git://git.wincent.com/command-t.git'
+"" git repos on your local machine (i.e. when working on your own plugin)
+""Plugin 'file:///home/gmarik/path/to/plugin'
+"" The sparkup vim script is in a subdirectory of this repo called vim.
+"" Pass the path to set the runtimepath properly.
+"" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"" Install L9 and avoid a Naming conflict if you've already installed a
+"" different version somewhere else.
+"" Plugin 'ascenator/L9', {'name': 'newL9'}
+"
+"" All of your Plugins must be added before the following line
+"call vundle#end()            " required
+"
+"filetype plugin indent on    " required
+"" To ignore plugin indent changes, instead use:
+""filetype plugin on
+""
+"" Brief help
+"" :PluginList       - lists configured plugins
+"" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+"" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+"" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+""
+"" see :h vundle for more details or wiki for FAQ
+"" Put your non-Plugin stuff after this line
